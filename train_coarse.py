@@ -4,6 +4,7 @@ import random
 from datetime import datetime
 from numpy import *
 import torch
+import EGFPNet
 import torch.nn as nn
 import torch.optim as optim
 import torch.backends.cudnn as cudnn

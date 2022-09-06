@@ -1,6 +1,7 @@
 import argparse
 from collections import OrderedDict
 import random
+import EGFPNet
 from numpy import *
 import torch
 import torch.nn as nn
@@ -230,7 +231,8 @@ def main_label(args, groups, label):
         if args.optimizer == 'Adam':
             optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=args.lr,
                                    weight_decay=args.weight_decay)
-        elif args.optimizer == 'SGD':
+        # elif args.optimizer == 'SGD':
+        else:
             optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=args.lr,
                                   momentum=args.momentum, weight_decay=args.weight_decay, nesterov=args.nesterov)
 

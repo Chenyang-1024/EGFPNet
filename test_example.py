@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 from skimage.measure import label
-from model_code import EGFPNet
+import EGFPNet
 import nibabel as nib
 import SimpleITK as sitk
 import os
@@ -118,29 +118,29 @@ def jietu(jixian_people, test_image_people):
     return validate_image_people, jixian_people_zuobiao
 
 def sxzy(out_slice):
-    ########处理每一个切片的结果
+    # the processed result of every slice
     jixian_people = [0, 0, 0, 0]
     test_label_people_1 = out_slice.copy()
     for j_1 in range(out_slice.shape[0]):
         if test_label_people_1[j_1, :].sum() > 0:
-            jixian_people[0] = j_1  # 最高点
+            jixian_people[0] = j_1  # the highest point
             break
 
     for j_2 in range(out_slice.shape[0]):
         if test_label_people_1[out_slice.shape[0] - j_2 - 1, :].sum() > 0:
             jixian_people[1] = out_slice.shape[0] - j_2 - 1
-            break  # 最低点
+            break  # the lowest point
 
     test_label_people_2 = out_slice.copy()
     for j_3 in range(out_slice.shape[1]):
         if test_label_people_2[:, j_3].sum() > 0:
             jixian_people[2] = j_3
-            break  # 最左点
+            break  # the leftmost point
 
     for j_4 in range(out_slice.shape[1]):
         if test_label_people_2[:, out_slice.shape[1] - j_4 - 1].sum() > 0:
             jixian_people[3] = out_slice.shape[1] - j_4 - 1
-            break  # 最右点
+            break  # the rightmost point
     return jixian_people
 
 def main(args):

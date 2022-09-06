@@ -134,7 +134,7 @@ class EGFPNet(nn.Module):
         self.d3_and_edge_to_out_feature = up_conv_skip(filters[1], filters[0], skip=2)
         self.d3_and_edge_to_out = nn.Conv2d(filters[0], out_ch, kernel_size=1, stride=1, padding=0)
 
-        #final out
+        # final out
         self.final = conv_block(filters[0] * 4, filters[0])
         self.Conv_final = nn.Conv2d(filters[0], out_ch, kernel_size=1, stride=1, padding=0)
 
@@ -170,7 +170,7 @@ class EGFPNet(nn.Module):
         e2_edge_ = self.Up_edge(e2_edge)
         out_edge = self.Conv_edge(e2_edge_)
 
-        #edge to e5 d5 d4 d3
+        # edge to e5 d5 d4 d3
         # e5
         edge_to_e5 = self.edge_to_e5(e2_edge)
         e5_and_edge_feature = self.e5_and_edge_feature(torch.cat((e5, edge_to_e5), dim=1))

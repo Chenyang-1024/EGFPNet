@@ -6,7 +6,7 @@ from sklearn import metrics
 
 
 def mean_iou(y_true_in, y_pred_in, print_table=False):
-    if True: #not np.sum(y_true_in.flatten()) == 0:
+    if True:  # not np.sum(y_true_in.flatten()) == 0:
         labels = y_true_in
         y_pred = y_pred_in
 
@@ -241,7 +241,7 @@ def ppv(output, target):
     return  (intersection + smooth) / \
            (output.sum() + smooth)
 
-__all__ = ['SegmentationMetric']
+# __all__ = ['SegmentationMetric']
 
 class SegmentationMetric(object):
     def __init__(self, numClass):
@@ -285,10 +285,12 @@ class SegmentationMetric(object):
 
     def Frequency_Weighted_Intersection_over_Union(self):
         # FWIOU =     [(TP+FN)/(TP+FP+TN+FN)] *[TP / (TP + FP + FN)]
-        freq = np.sum(self.confusion_matrix, axis=1) / np.sum(self.confusion_matrix)
-        iu = np.diag(self.confusion_matrix) / (
-                np.sum(self.confusion_matrix, axis=1) + np.sum(self.confusion_matrix, axis=0) -
-                np.diag(self.confusion_matrix))
+        # the following 4 lines code have been modified.
+        # To be specific, self.confusion_matrix changed to self.confusionMatrix
+        freq = np.sum(self.confusionMatrix, axis=1) / np.sum(self.confusionMatrix)
+        iu = np.diag(self.confusionMatrix) / (
+                np.sum(self.confusionMatrix, axis=1) + np.sum(self.confusionMatrix, axis=0) -
+                np.diag(self.confusionMatrix))
         FWIoU = (freq[freq > 0] * iu[freq > 0]).sum()
         return FWIoU
 
